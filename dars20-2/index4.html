@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style1.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="container" class="container">
+      <div class="box" id="year">
+        <h2>YEAR</h2>
+        <h3></h3>
+      </div>
+      <div class="box" id="month">
+        <h2>MONTH</h2>
+        <h3></h3>
+      </div>
+      <div class="box" id="time">
+        <h2>TIME</h2>
+        <h3></h3>
+      </div>
+    </div>
+    <script>
+      function getMonthName(monthIndex = 0) {
+        const monthlist = [
+          "January",
+          " February",
+          "arguments",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+        ];
+        return monthlist[monthIndex];
+      }
+      function applytheme() {
+        const date = new Date();
+        const currenthour = date.getHours();
+        // const currenthour = 7;
+        if (currenthour > 6 && currenthour < 17) {
+          document.getElementById("container").classList.add("light-container");
+          document.getElementsByClassName("box")[0].classList.add("light-box");
+          document.getElementsByClassName("box")[1].classList.add("light-box");
+          document.getElementsByClassName("box")[2].classList.add("light-box");
+          return;
+        }
+        document.getElementById("container").classList.add("dark-container");
+        document.getElementsByClassName("box")[0].classList.add("dark-box");
+        document.getElementsByClassName("box")[1].classList.add("dark-box");
+        document.getElementsByClassName("box")[2].classList.add("dark-box");
+      }
+
+      function applyseasontheme() {
+        // const date = new Date();
+        // const currentmonth = date.getMonth();
+        const currentmonth = 1;
+        if (currentmonth === 0 || currentmonth === 1 || currentmonth === 2) {
+          document.querySelector("#month h3").style.color = "blue";
+          return;
+        }
+        if (currentmonth === 3 || currentmonth === 4 || currentmonth === 5) {
+          document.querySelector("#month h3").style.color = "pink";
+          return;
+        }
+        if (currentmonth === 6 || currentmonth === 7 || currentmonth === 8) {
+          document.querySelector("#month h3").style.color = "#a7c957";
+          return;
+        }
+        document.querySelector("#month h3").style.color = "orange";
+      }
+
+      function getTime() {
+        const date = new Date();
+        let hour = date.getHours();
+        const minuts = date.getMinutes();
+        const seconds = date.getSeconds();
+        let timetype = "AM";
+        if (hour > 12) {
+          hour = hour - 12;
+          timetype = "PM";
+        }
+        const finaltime = hour + ":" + minuts + ":" + seconds + " " + timetype;
+        document.querySelector("#time h3").innerHTML = finaltime;
+      }
+      applytheme();
+      applyseasontheme();
+      const date = new Date();
+      const currentYear = date.getFullYear();
+      const month = date.getMonth();
+
+      document.querySelector("#year h3").innerHTML = currentYear;
+      document.querySelector(" #month h3").innerHTML = getMonthName(month);
+
+      setInterval(function () {
+        getTime();
+      }, 1000);
+
+      console.log(currentYear);
+      console.log(month);
+    </script>
+  </body>
+</html>
